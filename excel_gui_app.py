@@ -109,7 +109,7 @@ def run_app():
             result["value"] = input_entry.get().strip()
             input_win.destroy()
 
-        tb.Button(input_win, text="Submit", command=submit, style="success").pack(pady=10)
+        tb.Button(input_win, text="Submit", command=submit, bootstyle="success").pack(pady=10)
         root.wait_window(input_win)
         return result["value"]
 
@@ -137,7 +137,7 @@ def run_app():
             result["brand"] = brand_entry.get().strip()
             input_win.destroy()
 
-        tb.Button(input_win, text="Submit", command=submit, style="success").pack(pady=10)
+        tb.Button(input_win, text="Submit", command=submit, bootstyle="success").pack(pady=10)
         root.wait_window(input_win)
 
         return result["ip"], result["brand"]
@@ -172,9 +172,9 @@ def run_app():
     check_frame.pack(pady=20)
 
     # Add checkbuttons to the frame with left alignment
-    tb.Checkbutton(check_frame, text="Validate IP Addresses", variable=ip_check_var, style="success").pack(pady=5, anchor="w", fill="x")
-    tb.Checkbutton(check_frame, text="Filter by Brand", variable=brand_check_var, style="success").pack(pady=5, anchor="w", fill="x")
-    tb.Checkbutton(check_frame, text="ADMS EXCEL PROCESS WIZARD 🚀", variable=analyze_wizard_var, style="success").pack(pady=5, anchor="w", fill="x")
+    tb.Checkbutton(check_frame, text="Validate IP Addresses", variable=ip_check_var, bootstyle="success").pack(pady=5, anchor="w", fill="x")
+    tb.Checkbutton(check_frame, text="Filter by Brand", variable=brand_check_var, bootstyle="success").pack(pady=5, anchor="w", fill="x")
+    tb.Checkbutton(check_frame, text="ADMS EXCEL PROCESS WIZARD 🚀", variable=analyze_wizard_var, bootstyle="success").pack(pady=5, anchor="w", fill="x")
 
 
     # Button Frame to center all buttons
@@ -184,9 +184,9 @@ def run_app():
     # Common width for all buttons
     button_width = 25
 
-    tb.Button(button_frame, text="🚀 Process & Export", command=process_file, style=SUCCESS, width=button_width).pack(pady=5)
-    tb.Button(button_frame, text="🔄 Reset App", command=reset_app, style=DANGER, width=button_width).pack(pady=5)
-    tb.Button(button_frame, text="❓ Help & Instructions", command=show_help, style=INFO, width=button_width).pack(pady=5)
+    tb.Button(button_frame, text="🚀 Process & Export", command=process_file, bootstyle=SUCCESS, width=button_width).pack(pady=5)
+    tb.Button(button_frame, text="🔄 Reset App", command=reset_app, bootstyle=DANGER, width=button_width).pack(pady=5)
+    tb.Button(button_frame, text="❓ Help & Instructions", command=show_help, bootstyle=(INFO, OUTLINE), width=button_width).pack(pady=5)
 
     root.mainloop()
 
