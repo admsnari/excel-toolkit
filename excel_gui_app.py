@@ -40,21 +40,21 @@ def run_app():
             brand_col = "BRAND"
 
             if ip_check_var.get() and ip_col not in df.columns:
-                ip_col_custom = get_custom_column_name("Missing Default IP Column", "Enter custom IP column name:")
+                ip_col_custom = get_custom_column_name("Missing IP Column", "Enter custom IP column name:")
                 if not ip_col_custom:
                     messagebox.showerror("Error", "No IP column name provided.")
                     return
                 ip_col = ip_col_custom
 
             if brand_check_var.get() and brand_col not in df.columns:
-                brand_col_custom = get_custom_column_name("Missing Default Brand Column", "Enter custom Brand column name:")
+                brand_col_custom = get_custom_column_name("Missing Brand Column", "Enter custom Brand column name:")
                 if not brand_col_custom:
                     messagebox.showerror("Error", "No Brand column name provided.")
                     return
                 brand_col = brand_col_custom
 
             if analyze_wizard_var.get() and brand_col not in df.columns and ip_col not in df.columns:
-                ip_col_custom, brand_col_custom = get_custom_ip_and_brand_name("Wizard: Enter Custom IP and BRAND Column Names")
+                ip_col_custom, brand_col_custom = get_custom_ip_and_brand_name("Wizard: Enter Custom Column Names")
                 if not brand_col_custom or not ip_col_custom:
                     messagebox.showerror("Error", "Both Brand and IP columns are required.")
                     return
@@ -94,7 +94,7 @@ def run_app():
 
 
     def get_custom_column_name(title, label_text):
-        input_win = tb.Toplevel(root)
+        input_win = tb.Toplevel()
         input_win.title(title)
         input_win.geometry("400x150")
         input_win.grab_set()  # Make it modal
@@ -115,7 +115,7 @@ def run_app():
 
 
     def get_custom_ip_and_brand_name(title):
-        input_win = tb.Toplevel(root)
+        input_win = tb.Toplevel()
         input_win.title(title)
         input_win.geometry("400x200")
         input_win.grab_set()  # Make it modal
