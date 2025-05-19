@@ -13,9 +13,8 @@ A lightweight and user-friendly Python desktop application for processing Excel 
 
 ## 🖼 GUI Preview
 
-![alt text](excel_gui_app.png)
+![alt text](images/excel_gui_app.png)
 
----
 
 ## 🧰 Requirements
 
