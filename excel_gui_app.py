@@ -11,10 +11,6 @@ def run_app():
     def reset_app():
         file_path.set("")
         sheet_name_input.delete(0, END)
-        ip_col_entry.delete(0, END)
-        brand_col_entry.delete(0, END)
-        ip_col_frame.pack_forget()
-        brand_col_frame.pack_forget()
         ip_check_var.set(False)
         brand_check_var.set(False)
         analyze_wizard_var.set(False)
@@ -180,16 +176,6 @@ def run_app():
     tb.Checkbutton(check_frame, text="Filter by Brand", variable=brand_check_var, style="success").pack(pady=5, anchor="w", fill="x")
     tb.Checkbutton(check_frame, text="ADMS EXCEL PROCESS WIZARD 🚀", variable=analyze_wizard_var, style="success").pack(pady=5, anchor="w", fill="x")
 
-
-    ip_col_frame = tb.Frame(root)
-    tb.Label(ip_col_frame, text="Custom IP Column Name:").pack(side=LEFT)
-    ip_col_entry = tb.Entry(ip_col_frame, width=20)
-    ip_col_entry.pack(side=LEFT)
-
-    brand_col_frame = tb.Frame(root)
-    tb.Label(brand_col_frame, text="Custom Brand Column Name:").pack(side=LEFT)
-    brand_col_entry = tb.Entry(brand_col_frame, width=20)
-    brand_col_entry.pack(side=LEFT)
 
     # Button Frame to center all buttons
     button_frame = tb.Frame(root)
