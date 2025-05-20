@@ -1,17 +1,34 @@
 import os
-import pandas as pd
-import ipaddress
-from typing import Optional
 import re
+import ipaddress
+import pandas as pd
+from typing import Optional
+
 
 class ExcelHandler:
+    """
+    A class to handle Excel file operations including reading, validating IP addresses,
+    brand pattern matching, and exporting analyzed results.
+    """
     def __init__(self, file_path: str, sheet_name: Optional[str] = None):
+        """
+        Initialize ExcelHandler.
+
+        :param file_path: Path to the Excel file.
+        :param sheet_name: Optional sheet name to read.
+        """
         self.file_path = file_path
         self.sheet_name = sheet_name
         self.df: Optional[pd.DataFrame] = None
         self.df_dict: dict[str, pd.DataFrame] = {}
 
     def read(self) -> pd.DataFrame:
+        """
+        Read the Excel file and load the specified or default sheet.
+
+        :return: Loaded DataFrame.
+        :raises FileNotFoundError: If the file does not exist.
+        """
         if not os.path.exists(self.file_path):
             raise FileNotFoundError(f"File not found: {self.file_path}")
         xls = pd.ExcelFile(self.file_path)
@@ -26,6 +43,12 @@ class ExcelHandler:
         return self.df
 
     def validate_ipv4_addresses(self, ip_column: str = "IP ADDRESS") -> None:
+        """
+        Validate IPv4 addresses in the specified column. Invalid or duplicate IPs are separated.
+
+        :param ip_column: Name of the column containing IP addresses.
+        :raises ValueError: If DataFrame is not loaded.
+        """
         if self.df is None:
             raise ValueError("Data not loaded.")
         self.df[ip_column] = self.df[ip_column].astype(str).str.strip()
@@ -45,6 +68,12 @@ class ExcelHandler:
         self.df_dict["invalid_and_repeated_ips"] = self.df[is_invalid]
 
     def split_brand_match(self, brand_column: str = "BRAND") -> None:
+        """
+        Split the DataFrame into matched and unmatched brand patterns.
+
+        :param brand_column: Name of the column containing brand identifiers.
+        :raises ValueError: If DataFrame is not loaded.
+        """
         if self.df is None:
             raise ValueError("Data not loaded.")
 
@@ -59,11 +88,16 @@ class ExcelHandler:
 
     def analyze_wizard(self, ip_column: str = "IP ADDRESS", brand_column: str = "BRAND") -> None:
         """
-        Step 1: Validate IP addresses (exclude invalid, loopback, unspecified, and 255.255.255.255)
-        Step 2: Filter rows with valid and unique IPs
-        Step 3: Match brand patterns from the filtered valid IPs
-        Step 4: Add AREA column from VARIABLE
-        Step 5: Save the result DataFrame to df_dict with a meaningful key
+        Analyze and process the data step-by-step:
+        1. Validate IPs.
+        2. Filter valid and unique IPs.
+        3. Match specific brand patterns.
+        4. Extract AREA from VARIABLE.
+        5. Format and save result to df_dict["result"].
+
+        :param ip_column: Name of the IP address column.
+        :param brand_column: Name of the brand column.
+        :raises ValueError: If DataFrame is not loaded.
         """
 
         self.validate_ipv4_addresses()
@@ -113,6 +147,12 @@ class ExcelHandler:
         self.df_dict["result"] = result_df
 
     def export_results(self, output_path: str) -> None:
+        """
+        Export processed data to an Excel file with multiple sheets.
+
+        :param output_path: Path to the output Excel file.
+        :raises ValueError: If there is no data to export.
+        """
         if not self.df_dict:
             raise ValueError("No data to export.")
 
