@@ -91,6 +91,7 @@ def run_app():
     ✔️ Brand filter will match the following patterns: SLBS, 2L1T, 3L1T, 4L1T, 2L2T, 3L, 4L
     ✔️ 'Validate IP Addresses' checks for valid IPv4 format and removes duplicates.
     ✔️ 'Filter by Brand' filters rows that contain specific brand patterns.
+    ✔️ The default IP and Brand Column Name: "IP ADDRESS" "BRAND".
     ✔️ Use the 'ADMS Excel Process Wizard 🚀' for an automated one-click process.
     📌 Tip: You can provide custom column names if your Excel columns are different.""")
         
