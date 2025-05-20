@@ -66,7 +66,7 @@ def run_app():
             if brand_check_var.get():
                 handler.split_brand_match(brand_column=brand_col)
             if analyze_wizard_var.get():
-                handler.analyze_wizard(brand_column=brand_col)
+                handler.analyze_wizard(ip_column=ip_col, brand_column=brand_col)
 
             output = filedialog.asksaveasfilename(
                 defaultextension=".xlsx",
