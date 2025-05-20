@@ -3,7 +3,7 @@
 import os
 import ttkbootstrap as tb
 from ttkbootstrap.constants import *
-from tkinter import filedialog, messagebox
+from tkinter import filedialog, messagebox, Listbox
 from excel_utils.excel import ExcelHandler
 
 def run_app():
@@ -38,7 +38,17 @@ def run_app():
             ip_col = "IP ADDRESS"
             brand_col = "BRAND"
 
+            if analyze_wizard_var.get() and brand_col not in df.columns and ip_col not in df.columns:
+                show_column_names("Missing IP Column", df.columns)
+                ip_col_custom, brand_col_custom = get_custom_ip_and_brand_name("Wizard: Enter Custom Column Names")
+                if not brand_col_custom or not ip_col_custom:
+                    messagebox.showerror("Error", "Both Brand and IP columns are required.")
+                    return
+                brand_col = brand_col_custom
+                ip_col = ip_col_custom
+
             if ip_check_var.get() and ip_col not in df.columns:
+                show_column_names("Missing IP Column", df.columns)
                 ip_col_custom = get_custom_column_name("Missing IP Column", "Enter custom IP column name:")
                 if not ip_col_custom:
                     messagebox.showerror("Error", "No IP column name provided.")
@@ -46,19 +56,12 @@ def run_app():
                 ip_col = ip_col_custom
 
             if brand_check_var.get() and brand_col not in df.columns:
+                show_column_names("Missing IP Column", df.columns)
                 brand_col_custom = get_custom_column_name("Missing Brand Column", "Enter custom Brand column name:")
                 if not brand_col_custom:
                     messagebox.showerror("Error", "No Brand column name provided.")
                     return
                 brand_col = brand_col_custom
-
-            if analyze_wizard_var.get() and brand_col not in df.columns and ip_col not in df.columns:
-                ip_col_custom, brand_col_custom = get_custom_ip_and_brand_name("Wizard: Enter Custom Column Names")
-                if not brand_col_custom or not ip_col_custom:
-                    messagebox.showerror("Error", "Both Brand and IP columns are required.")
-                    return
-                brand_col = brand_col_custom
-                ip_col = ip_col_custom
 
 
             if ip_check_var.get():
@@ -67,6 +70,7 @@ def run_app():
                 handler.split_brand_match(brand_column=brand_col)
             if analyze_wizard_var.get():
                 handler.analyze_wizard(ip_column=ip_col, brand_column=brand_col)
+
 
             output = filedialog.asksaveasfilename(
                 defaultextension=".xlsx",
@@ -89,9 +93,27 @@ def run_app():
     ✔️ 'Filter by Brand' filters rows that contain specific brand patterns.
     ✔️ Use the 'ADMS Excel Process Wizard 🚀' for an automated one-click process.
     📌 Tip: You can provide custom column names if your Excel columns are different.""")
+        
+    # show the user excel columns if the user file is not have the defult columns name
+    def show_column_names(title, columns):
+        col_win = tb.Toplevel()
+        col_win.title(title)
+        col_win.geometry("800x700")
+        col_win.grab_set()  # Modal
+
+        tb.Label(col_win, text="Available columns in the Excel file:").pack(pady=10)
+
+        listbox = Listbox(col_win, height=15, width=50)
+        listbox.pack(pady=5)
+
+        for col in columns:
+            listbox.insert("end", col)
+
+        tb.Button(col_win, text="OK", command=col_win.destroy, bootstyle="info").pack(pady=10)
+        root.wait_window(col_win)
 
 
-
+    # get one custom column name.
     def get_custom_column_name(title, label_text):
         input_win = tb.Toplevel()
         input_win.title(title)
@@ -112,7 +134,7 @@ def run_app():
         root.wait_window(input_win)
         return result["value"]
 
-
+    # get custom ip and brand column name
     def get_custom_ip_and_brand_name(title):
         input_win = tb.Toplevel()
         input_win.title(title)
