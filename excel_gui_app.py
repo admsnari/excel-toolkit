@@ -39,7 +39,7 @@ def run_app():
             brand_col = "BRAND"
 
             if analyze_wizard_var.get() and brand_col not in df.columns and ip_col not in df.columns:
-                show_column_names("Missing IP Column", df.columns)
+                show_column_names("Missing IP ADDRESS and BRAND Column", df.columns)
                 ip_col_custom, brand_col_custom = get_custom_ip_and_brand_name("Wizard: Enter Custom Column Names")
                 if not brand_col_custom or not ip_col_custom:
                     messagebox.showerror("Error", "Both Brand and IP columns are required.")
@@ -48,7 +48,7 @@ def run_app():
                 ip_col = ip_col_custom
 
             if ip_check_var.get() and ip_col not in df.columns:
-                show_column_names("Missing IP Column", df.columns)
+                show_column_names("Missing IP ADDRESS Column", df.columns)
                 ip_col_custom = get_custom_column_name("Missing IP Column", "Enter custom IP column name:")
                 if not ip_col_custom:
                     messagebox.showerror("Error", "No IP column name provided.")
@@ -56,7 +56,7 @@ def run_app():
                 ip_col = ip_col_custom
 
             if brand_check_var.get() and brand_col not in df.columns:
-                show_column_names("Missing IP Column", df.columns)
+                show_column_names("Missing BRAND Column", df.columns)
                 brand_col_custom = get_custom_column_name("Missing Brand Column", "Enter custom Brand column name:")
                 if not brand_col_custom:
                     messagebox.showerror("Error", "No Brand column name provided.")
