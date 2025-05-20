@@ -26,6 +26,10 @@ To install dependencies:
 
 ```bash
 pip install ttkbootstrap pandas openpyxl
-python -m PyInstaller --noconfirm --onefile --windowed excel_gui_app.py  # build command, run on windows
+python excel_gui_app.py 
+# run backup demo.py
+python backup/demo.py
+# build windows exe command
+python -m PyInstaller --noconfirm --onefile --windowed excel_gui_app.py 
 ```
 
