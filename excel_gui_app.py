@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 
-from excel_utils.excel import ExcelHandler
 import os
 import ttkbootstrap as tb
 from ttkbootstrap.constants import *
 from tkinter import filedialog, messagebox
-
+from excel_utils.excel import ExcelHandler
 
 def run_app():
     def reset_app():
