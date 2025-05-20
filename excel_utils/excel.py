@@ -112,9 +112,6 @@ class ExcelHandler:
         # Step 6: Save result only
         self.df_dict["result"] = result_df
 
-
-
-
     def export_results(self, output_path: str) -> None:
         if not self.df_dict:
             raise ValueError("No data to export.")
